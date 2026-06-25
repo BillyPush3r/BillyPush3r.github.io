@@ -4,5 +4,6 @@ icon: fas fa-code
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+## ABOUT Billy Pusher
+
+I rant about my projects, codes, skill-issues and experiences here.

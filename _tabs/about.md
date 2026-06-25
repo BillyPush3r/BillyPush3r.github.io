@@ -6,14 +6,14 @@ order: 4
 
 ## About 81lly Pu$h3r
 
-I am billy pusher.
+I am **Billy Pusher**.
 
-I write python mostly, barely rust.
+I write **Python** mostly, barely **Rust**.
 
-I have worked on AI stuff, DL/ML/RL...
+I have worked on **AI** stuff, **DL/ML/RL**...
 
-I have worked on backend stuff...
+I have also worked on **Backend** stuff a little...
 
-I know a little about other stuff too.
+I know a little about some other stuff too. Right now I don't remember what.
 
-I rant about my projects, codes, skill-issues and experiences here.
+I rant about *my projects, codes, skill-issues and experiences* here.

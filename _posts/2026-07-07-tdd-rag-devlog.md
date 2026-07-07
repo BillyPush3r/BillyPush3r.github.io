@@ -101,7 +101,7 @@ class EvaluationTest(BaseModel):
     expected_answer: StrictStr | None
 ```
 
-I'll use `green` as the test runner (`green -vvv evaluation`) — it's a prettier `unittest` runner. Now I'm going to implement different evaluation unit tests.
+I use `green` as the test runner (`green -vvv evaluation`) — it's a prettier `unittest` runner. Then I went to implement different evaluation unit tests.
 
 ---
 
@@ -312,7 +312,7 @@ Pipeline is now: **bi-encode → top-k candidates → cross-encode → rerank**.
 
 ### AI Mistake (!!!!!)
 
-> Okay `DOC-20` that claude generated in previous commit was using vocabulary that made `DOC-20` out of the options for first bi-encoding retrieval. So even my pipeline couldn't get `DOC-20` as relevant — the re-ranker never sees what the bi-encoder doesn't retrieve. I had to re-iterate the generation of `DOC-20`. Baseline still fails on test 04 so nothing unfair happened here.
+> Okay for document extention I used claude, that's the only part that got touched by LLMs. `DOC-20` that claude generated in previous commit was using vocabulary that made `DOC-20` out of the options for first bi-encoding retrieval. So even my pipeline couldn't get `DOC-20` as relevant — the re-ranker never sees what the bi-encoder doesn't retrieve. I had to re-iterate the generation of `DOC-20`. Baseline still fails on test 04 so nothing unfair happened here.
 
 After fixing that, results:
 
@@ -459,3 +459,6 @@ baseline passes 1/8 tests.   mine passes 8/8.
 | **Fabrication rate** (3 out-of-corpus) | 100% → always answers | **0%** → always abstains |
 
 The pipeline went from "always answers confidently, often wrong" to "answers when it knows, abstains when it doesn't." That's the core contract of a trustworthy RAG system.
+
+I hope I learned something from this experience.
+I hope you did too.

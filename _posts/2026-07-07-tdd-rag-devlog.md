@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Devlog: I TDD'd a RAG Pipeline From Scratch (and Shot Myself in the Foot Several Times)"
+title: "Devlog: I TDD'd a RAG Pipeline From Scratch as a Take-home interview task"
 date: 2026-07-07 12:00:00 +0200
 categories: [Devlog]
 tags: [python, rag, tdd, nlp, retrieval, sentence-transformers, bm25]
 ---
 
-I got a technical challenge: take a baseline RAG pipeline over an industrial documentation corpus, diagnose why its answer quality is poor, and improve it. When I started to implement, I thought it would be a good idea to use test driven development. **Hell yeah! it was.** I started by implementing unittests for evaluation and then added the solutions. It worked.
+I got a technical take-home task for an interview (senior ai engineer position). The task was: take a baseline RAG pipeline over an industrial documentation corpus, diagnose why its answer quality is poor, and improve it. When I started to implement, I thought it would be a good idea to use test driven development. **Hell yeah! it was.** I started by implementing unittests for evaluation and then added the solutions. It worked.
+
+Full implementation: [github.com/itsalirezajalouli/interview_task](https://github.com/itsalirezajalouli/interview_task)
 
 Here's the full commit-by-commit story.
 
@@ -124,7 +126,7 @@ Look at the query I wrote for test `t02`:
 
 The pressure spec lives in `DOC-17`. The inspection interval lives in `DOC-18`. The baseline's `argmax` picks **one** and throws the other away. Recall is permanently capped at 0.5.
 
-The fix: swap `argmax` for `argpartition` and return top-k candidates above a threshold. I found `argpartition` in a stackoverflow thread from 14 years ago:
+The fix: swap `argmax` for `argpartition` and return top-k candidates above a threshold. I found `argpartition` in a [stackoverflow thread from 14 years ago](https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array):
 
 ```python
 # baseline — always returns exactly one document
@@ -238,7 +240,7 @@ After this change the sentence that was cut in the middle by `CHUNK_SIZE` now ge
 (Chunk(id='DOC-19', text='The C-100 compressor undergoes extended maintenance checks...'), 0.4084)
 ```
 
-Query answered at **80% score**. Next best is **43%**. 
+Query answered at **80% score**. Next best is **43%**.
 
 > *I was thinking here I could try and implement semantic chunking and try to look like a know-it-all rag developer but why? this is a technical documentation corpus — each sentence is already semantically dense.*
 >
@@ -257,6 +259,7 @@ What we have currently is a bi-encoder implementation — query gets embedded an
 I extended the corpus with two adversarial documents. `DOC-20` is the correct answer ("No-Start Conditions"). `DOC-21` I filled with every word from the test query — *C-100 compressor, started, conditions, starting, start* — I got a little evil here.
 
 Test query:
+
 ```
 "Under what conditions should the C-100 compressor not be started?"
 ```
